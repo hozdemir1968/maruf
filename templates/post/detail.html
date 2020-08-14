@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+
+    <div class="container">
+        <div class="card" style="width: 25rem;">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+                <h4 class="card-title">{{ post.title }}</h4>
+                <small>
+                    <h6> Tarih : {{ post.publish_date }}</h6>
+                    <h6> Yazar : {{post.user}}</h6>
+                    </small>
+                <br>
+                <p class="card-text">{{ post.content|linebreaks }}</p>
+                {% if request.user.is_authenticated %}
+
+                <a href="{% url 'post:update' id=post.id %}" class="btn btn-primary">Güncelle</a>
+                <a href="{% url 'post:delete' id=post.id %}" class="btn btn-danger">Sil</a>
+            {% endif %}
+            </div>
+
+            <br><br><hr>
+            <h4>Yorum Ekle : </h4>
+            {% include 'post/comment.html' %}
+            <hr>
+            {% for comment in post.comments.all %}
+                <h5>{{ comment.name }} | <small>{{ comment.create_date }}</small></h5>
+                <p>{{ comment.content|linebreaks }}</p>
+                <hr>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

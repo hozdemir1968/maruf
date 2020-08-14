@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+
+    <div class="container">
+    {% for announce in announces %}
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h4 class="card-title">{{ announce.title }}</h4>
+                <small>
+                    <h6> Tarih : {{ announce.publish_date }}</h6>
+                    <h6> Yazar : {{announce.user}}</h6>
+                    </small>
+                <br>
+                <p class="card-text">{{ announce.content|linebreaks|truncatechars:150 }}</p>
+                <a href="{% url 'announce:detail' id=announce.id %}" class="btn btn-success">İncele</a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'announce:update' id=announce.id %}" class="btn btn-primary">Güncelle</a>
+                <a href="{% url 'announce:delete' id=announce.id %}" class="btn btn-danger">Sil</a>
+            {% endif %}
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+    <hr>
+    <div class="pagination">
+        <span class="step-links">
+            {% if announce.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ announce.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ announce.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if announce.has_next %}
+                <a href="?page={{ announce.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
+                <a href="?page={{ announce.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <hr>
+
+    </div>
+
+{% endblock %}
