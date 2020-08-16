@@ -16,7 +16,8 @@ def announce_index(request):
             | Q(content__icontains=query)
             | Q(user__first_name__icontains=query)
         ).distinct()
-    paginator = Paginator(announce_list, 5)
+    
+    paginator = Paginator(announce_list, 10)
     page_number = request.GET.get("page")
     announces = paginator.get_page(page_number)
     context = {"announces": announces}
@@ -24,7 +25,7 @@ def announce_index(request):
 
 
 def announce_create(request):
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated and request.user.is_superuser:
         return Http404
     form = AnnounceForm(request.POST or None)
     if form.is_valid():

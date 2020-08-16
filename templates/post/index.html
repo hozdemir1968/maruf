@@ -3,7 +3,7 @@
 
     <div class="container">
     {% for post in posts %}
-        <div class="card" style="width: 25rem;">
+        <div class="card" style="width: 18rem;">
             {% if post.image %}
                 <img src="{{ post.image.url }}" class="card-img-top" alt="...">
             {% endif %}
@@ -34,7 +34,7 @@
             {% endif %}
 
             <span class="current">
-                Page {{ posts.number }} of {{ page_obj.paginator.num_pages }}.
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
             </span>
 
             {% if posts.has_next %}
@@ -44,7 +44,6 @@
         </span>
     </div>
     <hr>
-
     </div>
 
 {% endblock %}
