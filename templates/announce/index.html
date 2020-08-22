@@ -1,32 +1,37 @@
 {% extends 'base.html' %}
 {% block body %}
 
-    <div class="container">
+<div class="container">
     {% for announce in announces %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">{{ announce.title }}</h4>
-                <small>
-                    <h6> Tarih : {{ announce.publish_date }}</h6>
-                    <h6> Yazar : {{ announce.user }}</h6>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ announce.title }}</h4>
+                    <small>
+                        <h6> Tarih : {{ announce.publish_date }}</h6>
+                        <h6> Yazar : {{ announce.user }}</h6>
                     </small>
-                <br>
-                <p class="card-text">{{ announce.content|linebreaks|truncatechars:150 }}</p>
-                {% if request.user.is_authenticated and request.user.is_superuser %}
-                <a href="{% url 'announce:update' id=announce.id %}" class="btn btn-primary">Güncelle</a>
-                <a href="{% url 'announce:delete' id=announce.id %}" class="btn btn-danger">Sil</a>
-            {% endif %}
+                    <br>
+                    <p class="card-text">{{ announce.content|linebreaks|truncatechars:150 }}</p>
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
+                    <a href="{% url 'announce:update' id=announce.id %}" class="btn btn-primary">Güncelle</a>
+                    <a href="{% url 'announce:delete' id=announce.id %}" class="btn btn-danger">Sil</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <br>
+    </div>
+    <br>
     {% endfor %}
 
     <hr>
     <div class="pagination">
         <span class="step-links">
             {% if announces.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ announces.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
+            <a href="?page=1">&laquo; first</a>
+            <a
+                href="?page={{ announces.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -34,12 +39,13 @@
             </span>
 
             {% if announces.has_next %}
-                <a href="?page={{ announces.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
-                <a href="?page={{ announces.paginator.num_pages }}">last &raquo;</a>
+            <a
+                href="?page={{ announces.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
+            <a href="?page={{ announces.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
     </div>
     <hr>
-    </div>
+</div>
 
 {% endblock %}

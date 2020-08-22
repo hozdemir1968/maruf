@@ -1,36 +1,41 @@
 {% extends 'base.html' %}
 {% block body %}
 
-    <div class="container">
+<div class="container">
     {% for post in posts %}
-        <div class="card" style="width: 18rem;">
-            {% if post.image %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card">
+                {% if post.image %}
                 <img src="{{ post.image.url }}" class="card-img-top" alt="...">
-            {% endif %}
-            <div class="card-body">
-                <h4 class="card-title">{{ post.title }}</h4>
-                <small>
-                <h6> Tarih : {{ post.publish_date }}</h6>
-                <h6> Yazar : {{post.user}}</h6>
-                </small>
-                <br>
-                <p class="card-text">{{ post.content|linebreaks|truncatechars:150 }}</p>
-                <a href="{% url 'post:detail' id=post.id %}" class="btn btn-success">İncele</a>
-                {% if request.user.is_authenticated %}
-                <a href="{% url 'post:update' id=post.id %}" class="btn btn-primary">Güncelle</a>
-                <a href="{% url 'post:delete' id=post.id %}" class="btn btn-danger">Sil</a>
-            {% endif %}
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <small>
+                        <h6> Tarih : {{ post.publish_date }}</h6>
+                        <h6> Yazar : {{post.user}}</h6>
+                    </small>
+                    <br>
+                    <p class="card-text">{{ post.content|linebreaks|truncatechars:150 }}</p>
+                    <a href="{% url 'post:detail' id=post.id %}" class="btn btn-success">İncele</a>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'post:update' id=post.id %}" class="btn btn-primary">Güncelle</a>
+                    <a href="{% url 'post:delete' id=post.id %}" class="btn btn-danger">Sil</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <br>
+    </div>
+    <br>
     {% endfor %}
 
     <hr>
     <div class="pagination">
         <span class="step-links">
             {% if posts.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ posts.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
+            <a href="?page=1">&laquo; first</a>
+            <a
+                href="?page={{ posts.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -38,12 +43,13 @@
             </span>
 
             {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
-                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            <a
+                href="?page={{ posts.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
     </div>
     <hr>
-    </div>
+</div>
 
 {% endblock %}

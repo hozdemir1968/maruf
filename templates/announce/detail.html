@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 {% block body %}
 
-    <div class="container">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">{{ announce.title }}</h4>
-                <small>
-                    <h6> Tarih : {{ announce.publish_date }}</h6>
-                    <h6> Yazar : {{announce.user}}</h6>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h4 class="card-title">{{ announce.title }}</h4>
+                    <small>
+                        <h6> Tarih : {{ announce.publish_date }}</h6>
+                        <h6> Yazar : {{announce.user}}</h6>
                     </small>
-                <br>
-                <p class="card-text">{{ announce.content|linebreaks }}</p>
-                {% if request.user.is_authenticated and request.user.is_superuser %}
+                    <br>
+                    <p class="card-text">{{ announce.content|linebreaks }}</p>
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
 
-                <a href="{% url 'announce:update' id=announce.id %}" class="btn btn-primary">Güncelle</a>
-                <a href="{% url 'announce:delete' id=announce.id %}" class="btn btn-danger">Sil</a>
-            {% endif %}
+                    <a href="{% url 'announce:update' id=announce.id %}" class="btn btn-primary">Güncelle</a>
+                    <a href="{% url 'announce:delete' id=announce.id %}" class="btn btn-danger">Sil</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 {% endblock %}

@@ -1,43 +1,45 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="{% url 'home' %}">Maruf Köyü</a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'announce:index' %}">Duyurular</a>
-        </li>
-        {% if request.user.is_authenticated and request.user.is_superuser %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'announce:create' %}">Duyuru Ekle</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'post:index' %}">Gönderiler</a>
-        </li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'post:create' %}">Gönderi Ekle</a>
-        </li>
-        {% endif %}
-        {% if not request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:register' %}">Üye Ol</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:login' %}">Giriş</a>
-        </li>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:logout' %}">Çıkış</a>
-        </li>
-        {% endif %}
-      </ul>
-      <form class="form-inline my-2 my-lg-0" method="GET">
-        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ request.GET.search }}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="{% url 'home' %}">Maruf Köyü</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'announce:index' %}">Duyurular</a>
+      </li>
+      {% if request.user.is_authenticated and request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'announce:create' %}">Duyuru Ekle</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:index' %}">Gönderiler</a>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:create' %}">Gönderi Ekle</a>
+      </li>
+      {% endif %}
+      {% if not request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:register' %}">Üye Ol</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:login' %}">Giriş</a>
+      </li>
+      {% endif %}
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:logout' %}">Çıkış</a>
+      </li>
+      {% endif %}
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="GET">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search"
+        value="{{ request.GET.search }}">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
